@@ -112,7 +112,7 @@ SEED_DB=true                   # Set to true to seed DB on startup in dev mode
 As mentioned above, Sequelize's `sync()` method handles table creation based on models. When you start the application for the first time, it will attempt to create the tables.
 
 ```bash
-npm start 
+npm start
 # or for development with nodemon
 npm run dev
 ```
@@ -151,7 +151,7 @@ The application should now be running on the port specified in your `.env` file 
 
 **Base URL**: `http://localhost:8080/api` (assuming PORT is 8080)
 
---- 
+---
 
 ### 1. Create Order
 
@@ -166,16 +166,16 @@ The application should now be running on the port specified in your `.env` file 
   {
     "GROUP_id": 101,
     "created_by_user_id": 1,
-    "total_amount": 90.00, // Optional, will be calculated from shares if not provided
+    "total_amount": 90.0, // Optional, will be calculated from shares if not provided
     "shares": [
       {
         "USER_id": 2,
-        "share_amount": 45.00,
-        "payment_status": "pending" 
+        "share_amount": 45.0,
+        "payment_status": "pending"
       },
       {
         "USER_id": 3,
-        "share_amount": 45.00,
+        "share_amount": 45.0,
         "payment_status": "pending"
       }
     ]
@@ -216,22 +216,22 @@ The application should now be running on the port specified in your `.env` file 
   - `400 Bad Request`: If required fields are missing or invalid (e.g., `GROUP_id`, `created_by_user_id`, `shares` array).
     ```json
     {
-        "success": false,
-        "status": 400,
-        "message": "GROUP_id, created_by_user_id, and a non-empty array of shares are required."
+      "success": false,
+      "status": 400,
+      "message": "GROUP_id, created_by_user_id, and a non-empty array of shares are required."
     }
     ```
   - `404 Not Found`: If `GROUP_id` or `created_by_user_id` (or a `USER_id` in a share) does not exist.
     ```json
     {
-        "success": false,
-        "status": 404,
-        "message": "Group with id=999 not found."
+      "success": false,
+      "status": 404,
+      "message": "Group with id=999 not found."
     }
     ```
   - `500 Internal Server Error`: For other server-side issues.
 
---- 
+---
 
 ### 2. List Order Shares for a Group
 
@@ -301,7 +301,7 @@ The application should now be running on the port specified in your `.env` file 
 - **Error Responses**:
   - `500 Internal Server Error`: If an issue occurs during data retrieval.
 
---- 
+---
 
 ### 3. List All Orders for a Group
 
@@ -404,4 +404,3 @@ The application should now be running on the port specified in your `.env` file 
 - Enhance error handling for more specific error types.
 - Write unit and integration tests.
 - Implement proper database migration management instead of relying solely on `sync()` for production environments.
-

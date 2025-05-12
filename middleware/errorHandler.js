@@ -7,9 +7,12 @@ const errorHandler = (err, req, res, next) => {
   let message = err.message || "Internal Server Error";
 
   // Handle Sequelize validation errors
-  if (err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError") {
+  if (
+    err.name === "SequelizeValidationError" ||
+    err.name === "SequelizeUniqueConstraintError"
+  ) {
     statusCode = 400; // Bad Request
-    message = err.errors.map(e => e.message).join(", ");
+    message = err.errors.map((e) => e.message).join(", ");
   }
 
   // Handle Sequelize foreign key constraint errors
@@ -17,9 +20,10 @@ const errorHandler = (err, req, res, next) => {
     statusCode = 400; // Bad Request
     // message = `Foreign key constraint error on field: ${err.fields.join(", ")}`;
     // Provide a more generic message for FK errors to avoid exposing too much detail
-    message = "A related resource could not be found or a constraint was violated.";
+    message =
+      "A related resource could not be found or a constraint was violated.";
   }
-  
+
   // Handle cases where an item is not found (e.g., findByPk returns null)
   // This should ideally be handled in controllers with a 404, but this is a fallback.
   if (err.message.toLowerCase().includes("not found")) {
@@ -36,4 +40,3 @@ const errorHandler = (err, req, res, next) => {
 };
 
 module.exports = errorHandler;
-
